@@ -8,7 +8,11 @@ const operators=document.querySelectorAll(".operator")
 const equalButton=document.getElementById("equal")
 const percent=document.getElementById("percent")
 
-
+let operation;
+let firstNum;
+let secondNum;
+let isFinished = false;
+let numberOfCalcs = 0;
 
 numberButtons.forEach((btn) => {btn.addEventListener("click", ()=>{
     if (isFinished) {current.textContent = btn.textContent}
@@ -73,12 +77,26 @@ function computeResult(operation, first, second){
     }
 }
 
-
+let result; 
 operators.forEach((opr) => {opr.addEventListener("click", ()=> {
-    operation = opr.textContent
-    firstNum = parseFloat(current.textContent);
-    previous.textContent = current.textContent + operation;
-    current.textContent = "";
+    numberOfCalcs += 1;
+    if (previous.textContent !== "" && current.textContent !== "" && numberOfCalcs>1) {
+        secondNum = parseFloat(current.textContent);
+        result = computeResult(operation, firstNum, secondNum);
+        operation = opr.textContent;
+        previous.textContent = result+operation;
+        firstNum = result;
+        current.textContent=""
+
+        console.log(firstNum, "first")
+        console.log(secondNum, "second")
+    }
+    else {
+        operation = opr.textContent;
+        firstNum = parseFloat(current.textContent);
+        previous.textContent = current.textContent + operation;
+        current.textContent = "";
+}
     isFinished=false;
 })} )
 
@@ -91,6 +109,7 @@ equalButton.addEventListener(("click"), ()=>{
     current.textContent=computeResult(operation, firstNum, secondNum)
     operation = undefined;
     isFinished = true;
+    numberOfCalcs = 0;
     }
 })
 
