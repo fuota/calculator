@@ -13,6 +13,9 @@ let firstNum;
 let secondNum;
 let isFinished = false;
 let numberOfCalcs = 0;
+let result; 
+let isOperatorTurned = false;
+
 
 numberButtons.forEach((btn) => {btn.addEventListener("click", ()=>{
     if (isFinished) {current.textContent = btn.textContent}
@@ -23,6 +26,7 @@ numberButtons.forEach((btn) => {btn.addEventListener("click", ()=>{
         {current.textContent += btn.textContent;}
     }
     isFinished=false;
+    isOperatorTurned = false;
 })
 })
 
@@ -30,6 +34,7 @@ dotButton.addEventListener("click", ()=> {
     if (current.textContent.includes(".")) return
     current.textContent += ".";
     isFinished=false;
+    isOperatorTurned = false;
 })
 
 clearButton.addEventListener("click", ()=> {
@@ -39,26 +44,13 @@ clearButton.addEventListener("click", ()=> {
     firstNum=undefined;
     secondNum=undefined;
     isFinished=false;
+    isOperatorTurned = false;
 })
 backspace.addEventListener("click", ()=>{
     if (current.textContent!=="") {
     current.textContent=current.textContent.slice(0,-1);
     isFinished=false;
-    }
-})
-
-clearButton.addEventListener("click", ()=> {
-    current.textContent = "0";
-    previous.textContent="";
-    operation=undefined;
-    firstNum=undefined;
-    secondNum=undefined;
-    isFinished=false;
-})
-backspace.addEventListener("click", ()=>{
-    if (current.textContent!=="") {
-    current.textContent=current.textContent.slice(0,-1);
-    isFinished=false;
+    isOperatorTurned = false
     }
 })
 
@@ -77,10 +69,16 @@ function computeResult(operation, first, second){
     }
 }
 
-let result; 
+
 operators.forEach((opr) => {opr.addEventListener("click", ()=> {
     numberOfCalcs += 1;
-    if (previous.textContent !== "" && current.textContent !== "" && numberOfCalcs>1) {
+    if (isOperatorTurned == true) {
+        numberOfCalcs -= 1;
+        operation = opr.textContent;
+        previous.textContent=previous.textContent.slice(0,-1)+operation;
+        
+    }
+    else if (previous.textContent !== "" && current.textContent !== "" && numberOfCalcs>1) {
         secondNum = parseFloat(current.textContent);
         result = computeResult(operation, firstNum, secondNum);
         operation = opr.textContent;
@@ -98,6 +96,7 @@ operators.forEach((opr) => {opr.addEventListener("click", ()=> {
         current.textContent = "";
 }
     isFinished=false;
+    isOperatorTurned = true;
 })} )
 
 
@@ -111,6 +110,7 @@ equalButton.addEventListener(("click"), ()=>{
     isFinished = true;
     numberOfCalcs = 0;
     }
+    isOperatorTurned = false;
 })
 
 percent.addEventListener("click", ()=> {
@@ -119,5 +119,5 @@ percent.addEventListener("click", ()=> {
     previous.textContent = current.textContent+"%";
     current.textContent = (firstNum/100).toString()
     isFinished=false;
-
+    isOperatorTurned = false;
 })
