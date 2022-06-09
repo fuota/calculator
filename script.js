@@ -11,16 +11,21 @@ const percent=document.getElementById("percent")
 
 
 numberButtons.forEach((btn) => {btn.addEventListener("click", ()=>{
+    if (isFinished) {current.textContent = btn.textContent}
+    else {
     if (current.textContent == "0") 
     {current.textContent = btn.textContent}
     else
         {current.textContent += btn.textContent;}
     }
-)})
+    isFinished=false;
+})
+})
 
 dotButton.addEventListener("click", ()=> {
     if (current.textContent.includes(".")) return
     current.textContent += ".";
+    isFinished=false;
 })
 
 clearButton.addEventListener("click", ()=> {
@@ -44,10 +49,12 @@ clearButton.addEventListener("click", ()=> {
     operation=undefined;
     firstNum=undefined;
     secondNum=undefined;
+    isFinished=false;
 })
 backspace.addEventListener("click", ()=>{
     if (current.textContent!=="") {
     current.textContent=current.textContent.slice(0,-1);
+    isFinished=false;
     }
 })
 
