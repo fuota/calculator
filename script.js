@@ -4,6 +4,10 @@ const previous=document.querySelector("#previous");
 const dotButton=document.getElementById("dot")
 const clearButton=document.getElementById("clear-button");
 const backspace=document.getElementById("backspace")
+const operators=document.querySelectorAll(".operator")
+const equalButton=document.getElementById("equal")
+const percent=document.getElementById("percent")
+
 
 
 numberButtons.forEach((btn) => {btn.addEventListener("click", ()=>{
@@ -47,3 +51,47 @@ backspace.addEventListener("click", ()=>{
     }
 })
 
+function computeResult(operation, first, second){
+    switch (operation) {
+        case "+":
+            return first + second;
+        case "-":
+            return first - second;
+        case "×":
+            return first * second;
+        case "÷":
+            return first / second;
+        default:
+            break;
+    }
+}
+
+
+operators.forEach((opr) => {opr.addEventListener("click", ()=> {
+    operation = opr.textContent
+    firstNum = parseFloat(current.textContent);
+    previous.textContent = current.textContent + operation;
+    current.textContent = "";
+    isFinished=false;
+})} )
+
+
+
+equalButton.addEventListener(("click"), ()=>{
+    if (previous.textContent !== "" && current.textContent !== "" && operation) {
+    secondNum = parseFloat(current.textContent);
+    previous.textContent += current.textContent;
+    current.textContent=computeResult(operation, firstNum, secondNum)
+    operation = undefined;
+    isFinished = true;
+    }
+})
+
+percent.addEventListener("click", ()=> {
+
+    firstNum = parseFloat(current.textContent);
+    previous.textContent = current.textContent+"%";
+    current.textContent = (firstNum/100).toString()
+    isFinished=false;
+
+})
