@@ -65,11 +65,11 @@ button:active {
     color: #1d3e5d;
 }
 .number:hover{
-    background-color: #a9d2ff
+    background-color: #c3dffc
 
 } 
 .number:active {
-    background-color: #82beff
+    background-color: #adcdef
 } 
 
 .left, .right {
