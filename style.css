@@ -52,12 +52,25 @@ button {
     color: #588cbd;
     border: transparent;
 }
+button:hover {
+    background-color: #93c5f3;
+}
+button:active {
+    background-color: #78acdd;
+}
 
 .number {
     background-color: #cde5ff;
     font-weight: bolder;
     color: #1d3e5d;
 }
+.number:hover{
+    background-color: #a9d2ff
+
+} 
+.number:active {
+    background-color: #82beff
+} 
 
 .left, .right {
     display: flex;
@@ -82,4 +95,7 @@ footer{
 a {
     text-decoration: none;
     color:black
+}
+a:hover{
+    text-decoration: underline;
 }
