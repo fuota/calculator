@@ -1,1 +1,1 @@
-# calculator
+https://fuota.github.io/calculator/
